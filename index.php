@@ -20,7 +20,7 @@ $app->get('/telegramBot/', function() use ( $app, $curlCommand1, $token, $urlWeb
     );
 });
 
-$app->get('/telegramBot/command/', function() use ( $app, $database ) {
+$app->post('/telegramBot/command.php', function() use ( $app, $database ) {
 
     $data = new DateTime();
     $filename = 'tempLog/' . $data->format('Ymd') . '-phpinput.log';
