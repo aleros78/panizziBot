@@ -1,0 +1,72 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "cbb401f7d440973dfd73c2ccf298bccf",
+    "content-hash": "0725cd63c81cec0908b31770387868ff",
+    "packages": [
+        {
+            "name": "longman/telegram-bot",
+            "version": "0.17.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akalongman/php-telegram-bot.git",
+                "reference": "441f32de735fc9577cd75be9bfed83c98ca9ae56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akalongman/php-telegram-bot/zipball/441f32de735fc9577cd75be9bfed83c98ca9ae56",
+                "reference": "441f32de735fc9577cd75be9bfed83c98ca9ae56",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-pdo": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.1",
+                "phpunit/phpunit": "4.1.*",
+                "squizlabs/php_codesniffer": "2.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Longman\\TelegramBot\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Avtandil Kikabidze aka LONGMAN",
+                    "email": "akalongman@gmail.com",
+                    "homepage": "http://longman.ge",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP telegram bot",
+            "homepage": "https://github.com/akalongman/php-telegram-bot",
+            "keywords": [
+                "api",
+                "bot",
+                "telegram"
+            ],
+            "time": "2015-09-21 21:49:58"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.4.0"
+    },
+    "platform-dev": []
+}

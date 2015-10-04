@@ -4,42 +4,29 @@ require 'boot.php';
 
 //One Micro Framework - Hello World
 //remember enable the .htacess in this folder
-require_once('src/OnePHP/one_framework.php');
+require_once('lib/OnePHP/one_framework.php');
 /*
  * Remember remove this examples to avoid collisions in routes
  */
 //load Micro Framework with debug enabled
 $app = new \OnePHP\App();
-$app->get('/telegramBot/', function() use ( $app, $curlCommand1, $token, $urlWebhooks ) {//Action on the Root URL
+$app->get('/telegramBot/', function() use ( $app, $aTParam ) {//Action on the Root URL
     return $app->ResponseHTML("
-        <br/>per attivare il webhook : <br/> $curlCommand1 <br/>
-        <a href=\"https://api.telegram.org/bot$token/setWebhook?url=$urlWebhooks\"> attiva WebHooks </a> <br/>
-        <a href=\"https://api.telegram.org/bot$token/setWebhook?url=\"> disattiva WebHooks </a> <br/>
-        <a href=\"https://api.telegram.org/bot$token/getUpdates\"> getUpdate WebHooks </a> <br/>
-        <a href=\"https://api.telegram.org/bot$token/getMe\"> getMe </a> <br/>"
+        <a href=\"https://api.telegram.org/bot" . $aTParam['token'] . "/setWebhook?url=" . $aTParam['urlWebhooks'] . "\"> attiva WebHooks </a> <br/>
+        <a href=\"https://api.telegram.org/bot" . $aTParam['token'] . "/setWebhook?url=\"> disattiva WebHooks </a> <br/>
+        <a href=\"https://api.telegram.org/bot" . $aTParam['token'] . "/getUpdates\"> getUpdate WebHooks </a> <br/>
+        <a href=\"https://api.telegram.org/bot" . $aTParam['token'] . "/getMe\"> getMe </a> <br/>"
     );
 });
 
 $app->post('/telegramBot/command.php', function() use ( $app, $database ) {
 
-    $data = new DateTime();
-    $filename = 'tempLog/' . $data->format('Ymd') . '-phpinput.log';
-    $file = fopen($filename, 'a+');
-    fwrite($file, $data->format('YmdHis') . ' CHIAMATA ' . PHP_EOL);
+    log::addLog('Chiamata');
+    
     try {
         $message = json_decode(file_get_contents('php://input'), true);
 
-        fwrite($file, $data->format('YmdHis') . " " . print_r($message, true) . PHP_EOL);
-        fwrite($file, $data->format('YmdHis') . " " . print_r(array(
-                    "chat_idMessage" => $message['message']['message_id'],
-                    "chat_idUser" => $message['message']['from']['id'],
-                    "chat_name" => $message['message']['from']['first_name'],
-                    "chat_surname" => $message['message']['from']['last_name'],
-                    "chat_username" => $message['message']['from']['username'],
-                    "chat_date" => $message['message']['date'],
-                    "chat_text" => $message['message']['text'],
-                    "chat_log" => print_r($message, true)), true) . PHP_EOL);
-        fclose($file);
+        log::addLog( print_r($message, true));
 
         $database->insert("log", [
             "chat_idMessage" => $message['message']['message_id'],
@@ -51,14 +38,40 @@ $app->post('/telegramBot/command.php', function() use ( $app, $database ) {
             "chat_text" => $message['message']['text'],
             "chat_log" => print_r($message, true)
         ]);
-
     } catch (Exception $e) {
-        fwrite($file, $data->format('YmdHis') . 'Caught exception: ' . $e->getMessage() . PHP_EOL);
-        fclose($file);
+        log::addLog('Caught exception: ' . $e->getMessage() );
     }
 
     return $app->ResponseHTML("Finito.");
 });
+
+$app->get('/telegramBot/message.php', function( ) use ( $app, $aTParam ) {
+
+    $data = array(
+        'chat_id' => 28751773,
+        'text' => 'ciao io funziono...'
+    );
+
+    $request = new HTTPRequest($aTParam['urlCommand'] . 'sendMessage', HTTP_METH_POST);
+    $request->setRawPostData($data);
+    $request->send();
+    $response = $request->getResponseBody();
+
+    print_r($response);
+//// use key 'http' even if you send the request to https://...
+//    $options = array(
+//        'http' => array(
+//            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+//            'method' => 'POST',
+//            'content' => http_build_query($data),
+//        ),
+//    );
+//    $context = stream_context_create($options);
+//    $result = file_get_contents($aTParam['urlCommand'] . 'sendMessage', false, $context);
+//
+//    var_dump($result);
+});
+
 //    //test with slug in URL ( ':name' = '{name}' )
 //    $app->get('/:name', function( $name ) use ( $app ){
 //        echo "<h1> Hello <small> $name </small> </h1>";

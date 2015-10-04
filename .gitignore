@@ -1,2 +1,5 @@
 config.php
 PHP_errors.log
+mcbestia_bot.log
+TelegramException.log
+vendor
