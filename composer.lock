@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "longman/telegram-bot",
-            "version": "0.17.2",
+            "version": "0.21.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/akalongman/php-telegram-bot.git",
-                "reference": "441f32de735fc9577cd75be9bfed83c98ca9ae56"
+                "reference": "89413a16f28ae9865f486722a1f514ca79fe90a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/akalongman/php-telegram-bot/zipball/441f32de735fc9577cd75be9bfed83c98ca9ae56",
-                "reference": "441f32de735fc9577cd75be9bfed83c98ca9ae56",
+                "url": "https://api.github.com/repos/akalongman/php-telegram-bot/zipball/89413a16f28ae9865f486722a1f514ca79fe90a0",
+                "reference": "89413a16f28ae9865f486722a1f514ca79fe90a0",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "bot",
                 "telegram"
             ],
-            "time": "2015-09-21 21:49:58"
+            "time": "2015-10-20 22:04:04"
         }
     ],
     "packages-dev": [],
